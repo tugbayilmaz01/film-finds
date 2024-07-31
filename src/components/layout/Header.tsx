@@ -8,15 +8,6 @@ const Header: React.FC = () => {
 					Filmfinds.
 				</a>
 			</div>
-			<nav className="hidden md:flex space-x-6 ml-12 ">
-				<a href="/" className="hover:text-gray-400 green-text-color">
-					Home
-				</a>
-
-				<a href="/contact" className="hover:text-gray-400 green-text-color">
-					Contact
-				</a>
-			</nav>
 		</header>
 	);
 };
