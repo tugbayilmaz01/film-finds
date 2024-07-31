@@ -4,8 +4,8 @@ module.exports = {
 	theme: {
 		extend: {
 			colors: {
-				customBg: "#161718",
-				inputBg: "#1C1D20",
+				mainColor: "#161718",
+				lightColor: "#1C1D20",
 				"main-purple": "#ceb3ff",
 			},
 		},

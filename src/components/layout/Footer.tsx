@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 const Footer: FC = () => {
 	return (
-		<footer className="bg-inputBg text-white py-6">
+		<footer className="bg-lightColor text-white py-6">
 			<div className="max-w-screen-lg mx-auto px-4">
 				<div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-4">
 					<div className="text-sm manrope">

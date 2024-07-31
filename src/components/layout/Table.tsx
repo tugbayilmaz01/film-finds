@@ -12,7 +12,7 @@ interface MovieTableProps {
 
 const MovieTable: React.FC<MovieTableProps> = ({ films, onMovieClick }) => {
 	return (
-		<div className="overflow-x-auto manrope bg-inputBg border-black rounded">
+		<div className="overflow-x-auto manrope bg-lightColor border-black rounded">
 			<table className="min-w-full bg-color text-white rounded-lg overflow-hidden shadow-lg">
 				<thead className="bg-color">
 					<tr>
