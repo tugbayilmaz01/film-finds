@@ -85,8 +85,8 @@ const MovieDetails: React.FC = () => {
 	if (!movie) return <p className="text-white">No movie data found</p>;
 
 	return (
-		<div className="min-h-screen bg-customBg text-white flex justify-center items-center">
-			<div className="bg-inputBg manrope rounded-lg shadow-black shadow-xl overflow-hidden max-w-5xl w-full flex flex-col md:flex-row">
+		<div className="min-h-96 bg-customBg text-white flex justify-center items-center">
+			<div className="bg-inputBg manrope rounded-lg  overflow-hidden max-w-5xl w-full flex flex-col md:flex-row">
 				<div className="relative w-full md:w-1/3">
 					<img
 						src={movie.Poster}
