@@ -25,7 +25,7 @@ const MovieDetails: React.FC = () => {
 			setError(null);
 
 			try {
-				const url = new URL("http://www.omdbapi.com/");
+				const url = new URL("https://www.omdbapi.com/");
 				url.searchParams.append("apikey", "2e1e970c");
 				url.searchParams.append("i", imdbID || "");
 

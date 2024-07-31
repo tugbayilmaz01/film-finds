@@ -26,7 +26,7 @@ const FilmsList: React.FC = () => {
 			try {
 				const query = searchTerm.trim() === "" ? "Pokemon" : searchTerm;
 
-				const url = new URL("http://www.omdbapi.com/");
+				const url = new URL("https://www.omdbapi.com/");
 				url.searchParams.append("apikey", "2e1e970c");
 				url.searchParams.append("s", query);
 				if (year) url.searchParams.append("y", year);
