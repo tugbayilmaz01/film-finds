@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import MovieTable from "./layout/Table.tsx";
 import Pagination from "./Pagination.tsx";
-import { useDispatch, useSelector } from "react-redux";
 
 const MovieList: React.FC = () => {
 	const [films, setFilms] = useState<any[]>([]);
@@ -19,17 +18,6 @@ const MovieList: React.FC = () => {
 
 	const filmsPerPage = 10;
 	const navigate = useNavigate();
-	const dispatch = useDispatch();
-	const data = useSelector((state) => state.films);
-
-	useEffect(() => {
-		if (!searchTerm && year) {
-			dispatch({
-				type: "FETCH_FILMS_REQUEST",
-				payload: { searchTerm, year, type, currentPage },
-			});
-		}
-	}, [dispatch, searchTerm, year, type, currentPage]);
 
 	useEffect(() => {
 		const fetchMovies = async () => {
@@ -85,26 +73,26 @@ const MovieList: React.FC = () => {
 	const totalPages = Math.ceil(films.length / filmsPerPage);
 
 	return (
-		<div className="min-h-screen bg-customBg text-white p-4 manrope">
+		<div className="min-h-screen bg-mainColor text-white p-4 manrope">
 			<div className="mb-4 flex flex-wrap items-center gap-4">
 				<input
 					type="text"
 					placeholder="Search by name"
 					value={searchTerm}
 					onChange={(e) => setSearchTerm(e.target.value)}
-					className="p-2 bg-inputBg text-white rounded"
+					className="p-2 bg-lightColor text-white rounded"
 				/>
 				<input
 					type="text"
 					placeholder="Filter by year"
 					value={year}
 					onChange={(e) => setYear(e.target.value)}
-					className="p-2 bg-inputBg text-white rounded"
+					className="p-2 bg-lightColor text-white rounded"
 				/>
 				<select
 					value={type}
 					onChange={(e) => setType(e.target.value)}
-					className="p-2 bg-inputBg text-white rounded"
+					className="p-2 bg-lightColor text-white rounded"
 				>
 					<option value="">All</option>
 					<option value="movie">Movies</option>
@@ -118,14 +106,14 @@ const MovieList: React.FC = () => {
 							placeholder="Season"
 							value={season}
 							onChange={(e) => setSeason(e.target.value)}
-							className="p-2 bg-inputBg text-white rounded"
+							className="p-2 bg-lightColor text-white rounded"
 						/>
 						<input
 							type="text"
 							placeholder="Episode"
 							value={episode}
 							onChange={(e) => setEpisode(e.target.value)}
-							className="p-2 bg-inputBg text-white rounded"
+							className="p-2 bg-lightColor text-white rounded"
 						/>
 					</>
 				)}
