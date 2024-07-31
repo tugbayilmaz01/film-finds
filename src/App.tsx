@@ -1,19 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import FilmsList from "./components/FilmsList.tsx";
+import MovieList from "./components/MovieList.tsx";
 import MovieDetails from "./components/MovieDetails.tsx";
 import Header from "./components/layout/Header.tsx";
 import Footer from "./components/layout/Footer.tsx";
+
 import "./App.css";
 
 function App() {
 	return (
 		<Router>
-			<div className="min-h-screen bg-gray-900 text-white flex flex-col">
+			<div className="min-h-screen bg-customBg text-white flex flex-col">
 				<Header />
 				<main className="flex-grow">
 					<Routes>
-						<Route path="/" element={<FilmsList />} />
+						<Route path="/" element={<MovieList />} />
 						<Route path="/movie/:imdbID" element={<MovieDetails />} />
 					</Routes>
 				</main>
