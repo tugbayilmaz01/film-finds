@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import MovieTable from "../components/layout/Table.tsx";
-import Pagination from "../components/Pagination.tsx";
+import MovieTable from "./layout/Table.tsx";
+import Pagination from "./Pagination.tsx";
+import { useDispatch, useSelector } from "react-redux";
 
-const FilmsList: React.FC = () => {
+const MovieList: React.FC = () => {
 	const [films, setFilms] = useState<any[]>([]);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [filtering, setFiltering] = useState<boolean>(false);
@@ -12,10 +13,23 @@ const FilmsList: React.FC = () => {
 	const [searchTerm, setSearchTerm] = useState<string>("Pokemon");
 	const [year, setYear] = useState<string>("");
 	const [type, setType] = useState<string>("");
+	const [season, setSeason] = useState<string>("");
+	const [episode, setEpisode] = useState<string>("");
 	const [triggerSearch, setTriggerSearch] = useState<boolean>(true);
 
 	const filmsPerPage = 10;
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const data = useSelector((state) => state.films);
+
+	useEffect(() => {
+		if (!searchTerm && year) {
+			dispatch({
+				type: "FETCH_FILMS_REQUEST",
+				payload: { searchTerm, year, type, currentPage },
+			});
+		}
+	}, [dispatch, searchTerm, year, type, currentPage]);
 
 	useEffect(() => {
 		const fetchMovies = async () => {
@@ -24,14 +38,17 @@ const FilmsList: React.FC = () => {
 			setError(null);
 
 			try {
-				const query = searchTerm.trim() === "" ? "Pokemon" : searchTerm;
-
 				const url = new URL("https://www.omdbapi.com/");
 				url.searchParams.append("apikey", "2e1e970c");
-				url.searchParams.append("s", query);
+				url.searchParams.append("s", searchTerm);
 				if (year) url.searchParams.append("y", year);
 				if (type) url.searchParams.append("type", type);
 				url.searchParams.append("page", String(currentPage));
+
+				if (type === "episode" && season && episode) {
+					url.searchParams.append("Season", season);
+					url.searchParams.append("Episode", episode);
+				}
 
 				const response = await fetch(url.toString());
 				const data = await response.json();
@@ -54,7 +71,7 @@ const FilmsList: React.FC = () => {
 			fetchMovies();
 			setTriggerSearch(false);
 		}
-	}, [searchTerm, year, type, currentPage, triggerSearch]);
+	}, [searchTerm, year, type, season, episode, currentPage, triggerSearch]);
 
 	const handleSearch = () => {
 		setCurrentPage(1);
@@ -94,6 +111,24 @@ const FilmsList: React.FC = () => {
 					<option value="series">TV Series</option>
 					<option value="episode">Episodes</option>
 				</select>
+				{type === "episode" && (
+					<>
+						<input
+							type="text"
+							placeholder="Season"
+							value={season}
+							onChange={(e) => setSeason(e.target.value)}
+							className="p-2 bg-inputBg text-white rounded"
+						/>
+						<input
+							type="text"
+							placeholder="Episode"
+							value={episode}
+							onChange={(e) => setEpisode(e.target.value)}
+							className="p-2 bg-inputBg text-white rounded"
+						/>
+					</>
+				)}
 				<button
 					onClick={handleSearch}
 					className="px-4 py-2 main-green-color hover:bg-main-purple text-black rounded"
@@ -108,10 +143,12 @@ const FilmsList: React.FC = () => {
 				</div>
 			)}
 
+			{error && <div className="text-red-500">{error}</div>}
+
 			<MovieTable films={films} onMovieClick={handleMovieClick} />
 			<Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage} />
 		</div>
 	);
 };
 
-export default FilmsList;
+export default MovieList;
